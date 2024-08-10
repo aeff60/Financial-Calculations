@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PVIF Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="fvif.html">FVIF Calculator</a></li>
+                <li><a href="fvifa.html">FVIFA Calculator</a></li>
+                <li><a href="pvif.html">PVIF Calculator</a></li>
+                <li><a href="pvifa.html">PVIFA Calculator</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>PVIF Calculator (Table 3)</h1>
+        <p>Calculate the Present Value Interest Factor (PVIF) for a future sum.</p>
+        
+        <label for="pvif-interestRate">Interest Rate (k):</label>
+        <input type="number" id="pvif-interestRate" step="0.01" placeholder="Enter interest rate">
+        
+        <label for="pvif-periods">Number of Periods (n):</label>
+        <input type="number" id="pvif-periods" placeholder="Enter number of periods">
+        
+        <button id="calculatePVIF">Calculate PVIF</button>
+        
+        <h2>Result:</h2>
+        <p id="pvif-result"></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Financial Calculations</p>
+    </footer>
+
+    <script>
+        function calculatePVIF(k, n) {
+            return 1 / Math.pow(1 + k, n);
+        }
+
+        document.getElementById("calculatePVIF").addEventListener("click", function() {
+            const k = parseFloat(document.getElementById("pvif-interestRate").value) / 100;
+            const n = parseInt(document.getElementById("pvif-periods").value);
+            
+            if (!isNaN(k) && !isNaN(n)) {
+                const pvif = calculatePVIF(k, n);
+                document.getElementById("pvif-result").innerText = `PVIF: ${pvif.toFixed(4)}\nThis means that a future sum of $1 is worth $${pvif.toFixed(4)} today, if discounted at ${k * 100}% over ${n} periods.`;
+            } else {
+                document.getElementById("pvif-result").innerText = "Please enter valid numbers for both interest rate and periods.";
+            }
+        });
+    </script>
+</body>
+</html>

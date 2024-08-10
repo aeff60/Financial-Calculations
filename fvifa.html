@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FVIFA Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="fvif.html">FVIF Calculator</a></li>
+                <li><a href="fvifa.html">FVIFA Calculator</a></li>
+                <li><a href="pvif.html">PVIF Calculator</a></li>
+                <li><a href="pvifa.html">PVIFA Calculator</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>FVIFA Calculator (Table 2)</h1>
+        <p>Calculate the Future Value Interest Factor for an Annuity (FVIFA).</p>
+        
+        <label for="fvifa-interestRate">Interest Rate (k):</label>
+        <input type="number" id="fvifa-interestRate" step="0.01" placeholder="Enter interest rate">
+        
+        <label for="fvifa-periods">Number of Periods (n):</label>
+        <input type="number" id="fvifa-periods" placeholder="Enter number of periods">
+        
+        <button id="calculateFVIFA">Calculate FVIFA</button>
+        
+        <h2>Result:</h2>
+        <p id="fvifa-result"></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Financial Calculations</p>
+    </footer>
+
+    <script>
+        function calculateFVIFA(k, n) {
+            return (Math.pow(1 + k, n) - 1) / k;
+        }
+
+        document.getElementById("calculateFVIFA").addEventListener("click", function() {
+            const k = parseFloat(document.getElementById("fvifa-interestRate").value) / 100;
+            const n = parseInt(document.getElementById("fvifa-periods").value);
+            
+            if (!isNaN(k) && !isNaN(n)) {
+                const fvifa = calculateFVIFA(k, n);
+                document.getElementById("fvifa-result").innerText = `FVIFA: ${fvifa.toFixed(4)}\nThis means that making regular investments at ${k * 100}% interest for ${n} periods will grow to ${fvifa.toFixed(4)} times the amount invested.`;
+            } else {
+                document.getElementById("fvifa-result").innerText = "Please enter valid numbers for both interest rate and periods.";
+            }
+        });
+    </script>
+</body>
+</html>

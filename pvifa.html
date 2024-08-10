@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PVIFA Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="fvif.html">FVIF Calculator</a></li>
+                <li><a href="fvifa.html">FVIFA Calculator</a></li>
+                <li><a href="pvif.html">PVIF Calculator</a></li>
+                <li><a href="pvifa.html">PVIFA Calculator</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>PVIFA Calculator (Table 4)</h1>
+        <p>Calculate the Present Value Interest Factor for an Annuity (PVIFA).</p>
+        
+        <label for="pvifa-interestRate">Interest Rate (k):</label>
+        <input type="number" id="pvifa-interestRate" step="0.01" placeholder="Enter interest rate">
+        
+        <label for="pvifa-periods">Number of Periods (n):</label>
+        <input type="number" id="pvifa-periods" placeholder="Enter number of periods">
+        
+        <button id="calculatePVIFA">Calculate PVIFA</button>
+        
+        <h2>Result:</h2>
+        <p id="pvifa-result"></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Financial Calculations</p>
+    </footer>
+
+    <script>
+        function calculatePVIFA(k, n) {
+            return (1 - (1 / Math.pow(1 + k, n))) / k;
+        }
+
+        document.getElementById("calculatePVIFA").addEventListener("click", function() {
+            const k = parseFloat(document.getElementById("pvifa-interestRate").value) / 100;
+            const n = parseInt(document.getElementById("pvifa-periods").value);
+            
+            if (!isNaN(k) && !isNaN(n)) {
+                const pvifa = calculatePVIFA(k, n);
+                document.getElementById("pvifa-result").innerText = `PVIFA: ${pvifa.toFixed(4)}\nThis means that the present value of a series of payments is ${pvifa.toFixed(4)} times the amount of each payment, if discounted at ${k * 100}% over ${n} periods.`;
+            } else {
+                document.getElementById("pvifa-result").innerText = "Please enter valid numbers for both interest rate and periods.";
+            }
+        });
+    </script>
+</body>
+</html>
